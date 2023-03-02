@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./style/custom.css">
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    
     <title>Document</title>
 </head>
 <body>
@@ -46,13 +48,18 @@
                         <li class="nav-item"><a class="nav-link active" href="">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
                         <li class="nav-item"><a class="nav-link" href="#produtos">Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contatos">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
    
+    
+
+
+         
+    
 
     <section id="sobre">
         <div class="container w-100">
@@ -61,13 +68,100 @@
                     <h2>Sobre nós</h2>
                     <p>A Logo é uma líder no mercado de extorsão amigável, onde ensinamos a empresas no modelo B2B como evitar os ataques de ransomware através dos nossos softwares.</p>
                     <p>Se você precisa aprender do jeito mais absurdo como se defender de ameaças da Internet e melhorar sua segurança conte conosco! É pra isso que estamos aqui.</p>
-                    <a class="btn btn-lg btn-success">Botão</a>
+                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> Cadastre-se</button>
+                        
+
+                    <!-- Button trigger modal -->
+                
+               
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ficha de Cadastro:</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          
+                             
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">User</span>
+                                    <input type="text" id="username" class="form-control w-100 h-100" placeholder="Algo bonito" 
+                                    aria-label="Username" aria-describedby="basic-addon1">
+                                
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Password</span>
+                                    <input type="password" id="passwordType" class="form-control w-100 h-100" placeholder="Algo secreto" aria-label="Password" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Confirm Password</span>
+                                    <input type="password" id="passwordCheck" class="form-control w-100 h-100" placeholder="Confirme o segredo" aria-label="Password" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="input-group mb3">
+                                    <span class="input-group-text">Email</span>
+                                    <input type="email" id="emailAddress" class="form-control w-100 h-100" placeholder="Onde mandar seu convite" aria-label="Password" aria-describedby="basic-addon1">
+                                </div>
+
+                            
+                           
+                        </div>
+
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="checkAndSend()">Save changes</button>
+                        <script>
+                            function checkAndSend() {
+                                let passwordType = document.getElementById("passwordType").value;
+                                let passwordCheck = document.getElementById("passwordCheck").value;
+                                if (passwordType === passwordCheck) {
+                                    let userData = {
+                                        username: document.getElementById("username").value,
+                                        email: document.getElementById("emailAddress").value
+                                    };
+                            
+                                    fetch('http://localhost/api/register', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(userData)
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error("Bad network response");
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(data => {
+                                        console.log(data);
+                                    })
+                                    .catch(err => {
+                                        console.error("ERR: Problem with the fetch operation: ", err);
+                                    }) 
+                                } else {
+                                    alert("Senhas não conferem");
+                                }
+                            }
+                            </script>
+                            
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <img src="./images/pexels-josh-sorenson-1714208.jpg" alt="Imagem Exemplo" class="img-fluid">
                 </div>
             </div>
         </div>
+
+  
     </section>
 
     <section id="servicos">
